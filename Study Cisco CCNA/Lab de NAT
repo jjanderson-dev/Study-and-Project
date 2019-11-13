@@ -1,0 +1,17 @@
+enable
+    configure terminal
+            hostname Weaver
+        #
+        access-list 10 permit 192.168.100.16 0.0.0.15
+        #
+        ip nat pool mynatpool 198.18.184.105 198.18.184.110 netmask 255.255.255.248
+        ip nat inside source list 10 pool mynatpool overload
+        #
+        interface FastEthernet 0/0
+            ip nat inside
+            exit
+        #
+        interface Serial 0/0
+            ip nat outside
+            end
+copy running-config startup-config
