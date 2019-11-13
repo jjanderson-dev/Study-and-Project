@@ -1,0 +1,14 @@
+enable
+    show running-config
+    #
+    configure terminal
+        access-list 100 permit tcp host 192.168.33.3 host 172.22.242.23 eq 80
+        access-list 100 deny tcp any host 172.22.242.23 eq 80
+        access-list 100 permit ip any any
+        #
+        interface fastethernet 0/1
+            ip access-group 100 out
+            end
+copy running-config startup-config
+
+# acessar http://172.22.242.23
