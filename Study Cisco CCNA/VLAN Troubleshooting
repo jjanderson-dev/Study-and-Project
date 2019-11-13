@@ -9,6 +9,8 @@ enable
                 end
 copy running-config startup-config
 
+-----------------------------------------------------------------
+
 !#SW1
 enable
     show running-config
@@ -18,6 +20,8 @@ enable
                 show running-config
                 end
 copy running-config startup-config
+
+------------------------------------------------------------------
 
 !#SW3
 enable

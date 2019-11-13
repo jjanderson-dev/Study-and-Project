@@ -1,0 +1,23 @@
+Enable
+   show ipv6 ospf neighbor
+   #
+    configurate terminal
+        ipv6 unicast-routing
+        #
+        ipv6 route ::/0 2001:DB8:B:B1B2::1
+        exit
+        #
+ping ipv6 2001:DB8:0:1111::1
+#
+    configurate terminal
+        ipv6 router ospf 100
+        #
+            default-information originate
+            exit
+        #   
+        interface s1/0
+            ipv6 ospf 100 area 0
+            end
+            
+    show ipv6 ospf neighbor
+    copy running-config startup-config
