@@ -1,0 +1,26 @@
+!Regra 1
+access-list 101 permit tcp 192.168.10.0 0.0.0.255 host 172.16.10.1 established
+access-list 101 permit icmp 192.168.10.0 0.0.0.255 host 172.16.10.1 echo-reply
+access-list 101 deny ip 192.168.10.0 0.0.0.255 host 172.16.10.1
+access-list 101 permit ip any any
+int f0/1
+ip access-group 101 in
+exit
+!
+
+!Regra 2
+access-list 102 permit tcp 172.16.10.0 0.0.0.255 host 192.168.10.1 established
+access-list 102 permit icmp 172.16.10.0 0.0.0.255 host 192.168.10.1 echo-reply
+access-list 102 deny ip 172.16.10.0 0.0.0.255 host 192.168.10.1
+access-list 102 permit ip any any
+int f0/0
+ip access-group 102 in
+exit
+!
+
+!Regra 3
+access-list 1 permit host 172.16.10.1
+line vty 0 15
+ip access-class 1 in
+exit
+!

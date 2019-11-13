@@ -1,0 +1,183 @@
+!ALS
+enable
+conf t
+!
+hostname ALS
+no ip domain-lookup
+!
+line console 0
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+line vty 0 15
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+vlan 10
+	name VL-10
+exit
+!
+vlan 20
+	name VL-20
+exit
+!
+interface f0/1
+	switchport mode access
+	switchport access vlan 10
+	spanning-tree portfast
+	spanning-tree bpduguard enable
+exit
+!
+interface f0/2
+	switchport mode access
+	switchport access vlan 20
+	spanning-tree portfast
+	spanning-tree bpduguard enable
+exit
+!
+interface range f0/21-22
+	channel-group 1 mode passive
+exit
+!
+interface range f0/23-24
+	channel-group 2 mode auto
+exit
+!
+interface port-channel 1
+	switchport mode trunk
+exit
+!
+interface port-channel 2
+	switchport mode trunk
+exit
+!
+---
+!DLS1
+enable
+conf t
+!
+ip routing
+!
+hostname DLS1
+no ip domain-lookup
+!
+line console 0
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+line vty 0 15
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+vlan 10
+	name VL-10
+exit
+!
+vlan 20
+	name VL-20
+exit
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10 priority 4096
+spanning-tree vlan 20 priority 8192
+!
+interface range f0/21-22
+	channel-group 1 mode active
+exit
+!
+interface range g0/1-2
+	channel-group 3 mode on
+exit
+!
+interface port-channel 1
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+exit
+!
+interface port-channel 3
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+exit
+!
+interface vlan 10
+	ip address 192.168.10.252 255.255.255.0
+	standby 10 ip 192.168.10.254
+	standby 10 priority 200
+	standby 10 preempt
+	no shutdown
+exit
+!
+interface vlan 20
+	ip address 192.168.20.252 255.255.255.0
+	standby 20 ip 192.168.20.254
+	no shutdown
+exit
+!
+---
+!DLS2
+enable
+conf t
+!
+ip routing
+!
+hostname DLS2
+no ip domain-lookup
+!
+line console 0
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+line vty 0 15
+	logging synchronous
+	exec-timeout 0 0
+exit
+!
+vlan 10
+	name VL-10
+exit
+!
+vlan 20
+	name VL-20
+exit
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10 priority 8192
+spanning-tree vlan 20 priority 4096
+!
+interface range f0/23-24
+	channel-group 2 mode desirable
+exit
+!
+interface range g0/1-2
+	channel-group 3 mode on
+exit
+!
+interface port-channel 2
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+exit
+!
+interface port-channel 3
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+exit
+!
+interface vlan 10
+	ip address 192.168.10.253 255.255.255.0
+	standby 10 ip 192.168.10.254
+	no shutdown
+exit
+!
+interface vlan 20
+	ip address 192.168.20.253 255.255.255.0
+	standby 20 ip 192.168.20.254
+	standby 20 priority 200
+	standby 20 preempt
+	no shutdown
+exit
+!

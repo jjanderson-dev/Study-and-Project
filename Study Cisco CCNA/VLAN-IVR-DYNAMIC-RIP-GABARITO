@@ -1,0 +1,501 @@
+Etapa 1:
+
+Bloco Principal - 192.168.0.0/16
+
+/30 = 4-2 = 2 hosts
+/29 = 8-2 = 6 hosts
+/28 = 16-2 = 14 hosts
+/27 = 32-2 = 30 hosts
+/26 = 64-2 = 62 hosts
+/25 = 128-2 = 126 hosts
+/24 - 256-2 = 254 hosts
+/23 - 512-2 = 510 hosts
+/22 - 1024-2 = 1022 hosts
+/21 = 2048-2 = 2046 hosts
+/20 = 4096-2 = 4094 hosts
+/19 = 8192-2 = 8190 hosts
+
+- Ginástica: 6000 hosts
+	Rede: 192.168.0.0/19
+	Primero IP Válido: 192.168.0.1/19
+	Último IP Válido: 192.168.31.254/19
+	Broadcast: 192.168.31.255/19
+
+- Atletismo: 3000 hosts
+	Rede: 192.168.32.0/20
+	Primero IP Válido: 192.168.32.1/20
+	Último IP Válido: 192.168.47.254/20
+	Broadcast: 192.168.47.255/20
+
+- Vôlei: 1000 hosts
+	Rede: 192.168.48.0/22
+	Primero IP Válido: 192.168.48.1/22
+	Último IP Válido: 192.168.51.254/22
+	Broadcast: 192.168.51.255/22
+
+- Rugby: 500 hosts
+	Rede: 192.168.52.0/23
+	Primero IP Válido: 192.168.52.1/23
+	Último IP Válido: 192.168.53.254/23
+	Broadcast: 192.168.53.255/23
+
+- Basquete: 400 hosts
+	Rede: 192.168.54.0/23
+	Primero IP Válido: 192.168.54.1/23
+	Último IP Válido: 192.168.55.254/23
+	Broadcast: 192.168.55.255/23
+
+- Hipismo: 60 hosts
+	Rede: 192.168.56.0/26
+	Primero IP Válido: 192.168.56.1/26
+	Último IP Válido: 192.168.56.62/26
+	Broadcast: 192.168.56.63/26
+
+- Gerência dos Equipamentos (VLAN700): 25 hosts
+	Rede: 192.168.56.64/27
+	Primero IP Válido: 192.168.56.65/27
+	Último IP Válido: 192.168.56.94/27
+	Broadcast: 192.168.56.95/27
+
+- Gerência dos Equipamentos (VLAN600): 10 hosts
+	Rede: 192.168.56.96/28
+	Primero IP Válido: 192.168.56.97/28
+	Último IP Válido: 192.168.56.110/28
+	Broadcast: 192.168.56.111/28
+
+- Gerência dos Equipamentos (VLAN500): 6 hosts
+	Rede: 192.168.56.112/29
+	Primero IP Válido: 192.168.56.113/29
+	Último IP Válido: 192.168.56.118/29
+	Broadcast: 192.168.56.119/29
+
+- Links Ponto-a-Ponto (Seriais): 2 hosts cada
+	Rede: 192.168.56.120/30
+	Primero IP Válido: 192.168.56.121/30
+	Último IP Válido: 192.168.56.122/30
+	Broadcast: 192.168.56.123/30
+
+	Rede: 192.168.56.124/30
+	Primero IP Válido: 192.168.56.125/30
+	Último IP Válido: 192.168.56.126/30
+	Broadcast: 192.168.56.127/30
+
+-----------------------
+Etapa 2:
+
+! Rio-2016-SW1
+enable
+conf t
+!
+hostname Rio-2016-SW1
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+
+! Rio-2016-SW2
+enable
+conf t
+!
+hostname Rio-2016-SW2
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+
+! Rio-2016-SW3
+enable
+conf t
+!
+hostname Rio-2016-SW3
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+
+! Rio-2016-RT1
+enable
+conf t
+!
+hostname Rio-2016-RT1
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+
+! Rio-2016-RT2
+enable
+conf t
+!
+hostname Rio-2016-RT2
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+
+! Rio-2016-RT3
+enable
+conf t
+!
+hostname Rio-2016-RT3
+!
+no ip domain-lookup
+!
+enable secret R1020i6
+!
+line console 0
+password O1yM7iC5
+logging synchronous
+login
+exit
+!
+line vty 0 15
+logging synchronous
+login local
+exit
+!
+service password-encryption
+!
+ip domain-name rio2016.com
+!
+username admin secret R1020i6
+!
+crypto key generate rsa
+1024
+!
+ip ssh version 2
+ip ssh authentication-retries 2
+ip ssh time-out 60
+!
+-----------------------
+Etapa 3:
+
+! Rio-2016-SW1
+interface vlan 500
+ip address 192.168.56.113 255.255.255.248
+exit
+ip default-gateway 192.168.56.118
+!
+
+! Rio-2016-SW2
+interface vlan 600
+ip address 192.168.56.97 255.255.255.240
+exit
+ip default-gateway 192.168.56.110
+!
+
+! Rio-2016-SW3
+interface vlan 700
+ip address 192.168.56.65 255.255.255.224
+ip default-gateway 192.168.56.94
+!
+
+! Rio-2016-RT1
+int f0/1
+no shut
+exit
+int f0/1.10
+encapsulation dot1q 10
+ip address 192.168.51.254 255.255.252.0
+exit
+int f0/1.20
+encapsulation dot1q 20
+ip address 192.168.47.254 255.255.240.0
+exit
+int f0/1.500
+encapsulation dot1q 500 native
+ip address 192.168.56.118 255.255.255.248
+exit
+int s0/0
+ip address 192.168.56.121 255.255.255.252
+no shut
+exit
+!
+
+! Rio-2016-RT2
+int f0/1
+no shut
+exit
+int f0/1.30
+encapsulation dot1q 30
+ip address 192.168.53.254 255.255.254.0
+exit
+int f0/1.40
+encapsulation dot1q 40
+ip address 192.168.56.62 255.255.255.192
+exit
+int f0/1.600
+encapsulation dot1q 600 native
+ip address 192.168.56.110 255.255.255.240
+exit
+int s0/0
+ip address 192.168.56.122 255.255.255.252
+clock rate 64000
+no shut
+exit
+int s0/1
+ip address 192.168.56.125 255.255.255.252
+clock rate 64000
+no shut
+exit
+!
+
+! Rio-2016-RT3
+int f0/1
+no shut
+exit
+int f0/1.50
+encapsulation dot1q 50
+ip address 192.168.31.254 255.255.224.0
+exit
+int f0/1.60
+encapsulation dot1q 60
+ip address 192.168.55.254 255.255.254.0
+exit
+int f0/1.700
+encapsulation dot1q 700 native
+ip address 192.168.56.94 255.255.255.224
+exit
+int s0/0
+ip address 192.168.56.126 255.255.255.252
+no shut
+exit
+!
+-----------------------
+Etapa 4:
+
+! Rio-2016-SW1
+vlan 10
+name VOLEI
+exit
+vlan 20
+name ATLETISMO
+exit
+vlan 500
+name GERENCIA
+exit
+int range f0/10-11
+switchport mode access
+switchport access vlan 10
+exit
+int range f0/15-16
+switchport mode access
+switchport access vlan 20
+exit
+int f0/1
+switchport mode trunk
+switchport trunk allowed vlan 10,20,500
+switchport trunk native vlan 500
+exit
+!
+
+! Rio-2016-SW2
+vlan 30
+name RUGBY
+exit
+vlan 40
+name HIPISMO
+exit
+vlan 600
+name GERENCIA
+exit
+int range f0/10-11
+switchport mode access
+switchport access vlan 30
+exit
+int range f0/15-16
+switchport mode access
+switchport access vlan 40
+exit
+int f0/1
+switchport mode trunk
+switchport trunk allowed vlan 30,40,600
+switchport trunk native vlan 600
+exit
+!
+
+! Rio-2016-SW3
+vlan 50
+name GINASTICA
+exit
+vlan 60
+name BASQUETE
+exit
+vlan 700
+name GERENCIA
+exit
+int range f0/10-11
+switchport mode access
+switchport access vlan 50
+exit
+int range f0/15-16
+switchport mode access
+switchport access vlan 60
+exit
+int f0/1
+switchport mode trunk
+switchport trunk allowed vlan 50,60,700
+switchport trunk native vlan 700
+exit
+!
+-----------------------
+Etapa 5:
+
+! Rio-2016-RT1
+router rip
+version 2
+no auto-summary
+network 192.168.32.0
+network 192.168.48.0
+network 192.168.56.112
+network 192.168.56.120
+exit
+!
+
+! Rio-2016-RT2
+router rip
+version 2
+no auto-summary
+network 192.168.52.0
+network 192.168.56.0
+network 192.168.56.96
+network 192.168.56.120
+network 192.168.56.124
+exit
+!
+
+! Rio-2016-RT3
+router rip
+version 2
+no auto-summary
+network 192.168.0.0
+network 192.168.54.0
+network 192.168.56.64
+network 192.168.56.124
+exit
+!

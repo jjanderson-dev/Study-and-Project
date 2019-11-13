@@ -1,0 +1,350 @@
+-----
+BUILDING 1:
+
+!SW-BLDG1
+enable
+conf t
+hostname SW-BLDG1
+!
+enable secret cisco
+username cisco secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line console 0
+login local
+logging synchronous
+exit
+line vty 0 15
+login local
+transport input ssh
+logging synchronous
+exit
+!
+vlan 110
+vlan 120
+vlan 130
+vlan 140
+vlan 150
+name GERENCIA-NATIVA
+exit
+!
+int f0/1
+switchport mode access
+switchport access vlan 110
+int f0/2
+switchport mode access
+switchport access vlan 120
+int f0/3
+switchport mode access
+switchport access vlan 130
+int f0/4
+switchport mode access
+switchport access vlan 140
+exit
+!
+int g0/1
+switchport mode trunk
+switchport trunk allowed vlan 110,120,130,140,150
+switchport trunk native vlan 150
+exit
+!
+interface vlan 150
+ip add 192.168.150.10 255.255.255.0
+no shut
+exit
+ip default-gateway 192.168.150.254
+!
+
+!RT-BLDG1
+enable
+conf t
+hostname RT-BLDG1
+!
+enable secret cisco
+username cisco secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line console 0
+login local
+logging synchronous
+exit
+line vty 0 15
+login local
+transport input ssh
+logging synchronous
+exit
+!
+int g0/1
+no shut
+int g0/1.110
+encapsulation dot1q 110
+ip add 192.168.110.254 255.255.255.0
+int g0/1.120
+encapsulation dot1q 120
+ip add 192.168.120.254 255.255.255.0
+int g0/1.130
+encapsulation dot1q 130
+ip add 192.168.130.254 255.255.255.0
+int g0/1.140
+encapsulation dot1q 140
+ip add 192.168.140.254 255.255.255.0
+int g0/1.150
+encapsulation dot1q 150 native
+ip add 192.168.150.254 255.255.255.0
+exit
+!
+ip dhcp pool VLAN-110
+network 192.168.110.0 255.255.255.0
+default-router 192.168.110.254
+dns-server 192.168.140.10
+ip dhcp pool VLAN-120
+network 192.168.120.0 255.255.255.0
+default-router 192.168.120.254
+dns-server 192.168.140.10
+ip dhcp pool VLAN-130
+network 192.168.130.0 255.255.255.0
+default-router 192.168.130.254
+dns-server 192.168.140.10
+ip dhcp pool VLAN-140
+network 192.168.140.0 255.255.255.0
+default-router 192.168.140.254
+dns-server 192.168.140.10
+exit
+ip dhcp excluded-address 192.168.110.1 192.168.110.9
+ip dhcp excluded-address 192.168.110.11 192.168.110.254
+ip dhcp excluded-address 192.168.120.1 192.168.120.9
+ip dhcp excluded-address 192.168.120.11 192.168.120.254
+ip dhcp excluded-address 192.168.130.1 192.168.130.9
+ip dhcp excluded-address 192.168.130.11 192.168.130.254
+ip dhcp excluded-address 192.168.140.1 192.168.140.9
+ip dhcp excluded-address 192.168.140.11 192.168.140.254
+!
+int s0/0/0
+ip add 10.1.1.5 255.255.255.252
+clock rate 64000
+no shut
+int s0/0/1
+ip add 10.1.1.1 255.255.255.252
+clock rate 64000
+no shut
+exit
+!
+router ospf 1
+router-id 1.1.1.1
+network 192.168.0.0 0.0.255.255 area 0
+network 10.1.1.0 0.0.0.255 area 0
+passive-interface g0/1
+exit
+!
+-----
+BUILDING 2:
+
+!SW-BLDG2
+enable
+conf t
+hostname SW-BLDG2
+!
+enable secret cisco
+username cisco secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line console 0
+login local
+logging synchronous
+exit
+line vty 0 15
+login local
+transport input ssh
+logging synchronous
+exit
+!
+vlan 210
+vlan 220
+vlan 230
+vlan 250
+name GERENCIA-NATIVA
+exit
+!
+int f0/1
+switchport mode access
+switchport access vlan 210
+int f0/2
+switchport mode access
+switchport access vlan 220
+int f0/3
+switchport mode access
+switchport access vlan 230
+exit
+!
+int g0/1
+switchport mode trunk
+switchport trunk allowed vlan 210,220,230,250
+switchport trunk native vlan 250
+exit
+!
+interface vlan 250
+ip add 172.16.250.10 255.255.255.0
+no shut
+exit
+ip default-gateway 172.16.250.254
+!
+
+!RT-BLDG2
+enable
+conf t
+hostname RT-BLDG2
+!
+enable secret cisco
+username cisco secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line console 0
+login local
+logging synchronous
+exit
+line vty 0 15
+login local
+transport input ssh
+logging synchronous
+exit
+!
+int g0/1
+no shut
+int g0/1.110
+encapsulation dot1q 210
+ip add 172.16.210.254 255.255.255.0
+int g0/1.120
+encapsulation dot1q 220
+ip add 172.16.220.254 255.255.255.0
+int g0/1.130
+encapsulation dot1q 230
+ip add 172.16.230.254 255.255.255.0
+int g0/1.250
+encapsulation dot1q 250 native
+ip add 172.16.250.254 255.255.255.0
+exit
+!
+ip dhcp pool VLAN-210
+network 172.16.210.0 255.255.255.0
+default-router 172.16.210.254
+dns-server 192.168.140.10
+ip dhcp pool VLAN-220
+network 172.16.220.0 255.255.255.0
+default-router 172.16.220.254
+dns-server 192.168.140.10
+ip dhcp pool VLAN-230
+network 172.16.230.0 255.255.255.0
+default-router 172.16.230.254
+dns-server 192.168.140.10
+exit
+ip dhcp excluded-address 172.16.210.1 172.16.210.9
+ip dhcp excluded-address 172.16.210.11 172.16.210.254
+ip dhcp excluded-address 172.16.220.1 172.16.220.9
+ip dhcp excluded-address 172.16.220.11 172.16.220.254
+ip dhcp excluded-address 172.16.230.1 172.16.230.9
+ip dhcp excluded-address 172.16.230.11 172.16.230.254
+!
+int s0/0/0
+ip add 10.1.1.2 255.255.255.252
+clock rate 64000
+no shut
+int s0/0/1
+ip add 10.1.1.9 255.255.255.252
+clock rate 64000
+no shut
+exit
+!
+router ospf 1
+router-id 2.2.2.2
+network 172.16.0.0 0.0.255.255 area 0
+network 10.1.1.0 0.0.0.255 area 0
+passive-interface g0/1
+exit
+!
+-----
+ESTRUTURA DE INTERNET:
+
+!RT-ISP
+enable
+conf t
+hostname RT-ISP
+!
+enable secret cisco
+username cisco secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+line console 0
+login local
+logging synchronous
+exit
+line vty 0 15
+login local
+transport input ssh
+logging synchronous
+exit
+!
+int s0/0/0
+ip add 10.1.1.6 255.255.255.252
+clock rate 64000
+ip nat inside
+no shut
+int s0/0/1
+ip add 10.1.1.10 255.255.255.252
+clock rate 64000
+ip nat inside
+no shut
+int s0/1/0
+ip add 64.100.100.1 255.255.255.252
+clock rate 64000
+ip nat outside
+no shut
+exit
+!
+access-list 1 permit 192.168.0.0 0.0.255.255
+access-list 1 permit 172.16.0.0 0.0.255.255
+ip nat inside source list 1 interface s0/1/0 overload
+!
+ip route 0.0.0.0 0.0.0.0 s0/1/0
+router ospf 1
+router-id 3.3.3.3
+network 10.1.1.0 0.0.0.255 area 0
+default-information originate
+exit
+!
+
+!INTERNET
+enable
+conf t
+hostname INTERNET
+!
+int g0/0
+ip add 172.217.29.254 255.255.255.0
+no shut
+int g0/1
+ip add 31.13.85.254 255.255.255.0
+no shut
+int s0/1/0
+ip add 64.100.100.2 255.255.255.252
+no shut
+exit
+!

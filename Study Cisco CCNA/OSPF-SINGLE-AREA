@@ -1,0 +1,322 @@
+R1:
+
+enable
+configure terminal
+!
+hostname R1
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 41.41.41.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.1 255.255.255.248
+ip ospf priority 50
+no shutdown
+exit
+!
+router ospf 1
+router-id 1.1.1.1
+network 41.41.41.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+R2:
+
+enable
+configure terminal
+!
+hostname R2
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 42.42.42.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.2 255.255.255.248
+no shutdown
+exit
+!
+router ospf 1
+router-id 2.2.2.2
+network 42.42.42.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+R3:
+
+enable
+configure terminal
+!
+hostname R3
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 43.43.43.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.3 255.255.255.248
+no shutdown
+exit
+!
+router ospf 1
+router-id 3.3.3.3
+network 43.43.43.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+R4:
+
+enable
+configure terminal
+!
+hostname R4
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 44.44.44.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.4 255.255.255.248
+ip ospf priority 25
+no shutdown
+exit
+!
+router ospf 1
+router-id 4.4.4.4
+network 44.44.44.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+R5:
+
+enable
+configure terminal
+!
+hostname R5
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 45.45.45.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.5 255.255.255.248
+no shutdown
+exit
+!
+router ospf 1
+router-id 5.5.5.5
+network 45.45.45.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+R6:
+
+enable
+configure terminal
+!
+hostname R6
+no ip domain-lookup
+enable secret class
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface loopback 0
+ip address 46.46.46.1 255.255.255.0
+no shutdown
+exit
+!
+interface f0/0
+ip address 172.16.20.6 255.255.255.248
+ip ospf priority 0
+no shutdown
+exit
+!
+interface serial 0/0/0
+ip address 64.100.100.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+!
+ip route 0.0.0.0 0.0.0.0 serial 0/0/0
+!
+router ospf 1
+router-id 6.6.6.6
+default-information originate
+network 46.46.46.0 0.0.0.255 area 0
+network 172.16.20.0 0.0.0.7 area 0
+exit
+!
+end
+write memory
+!
+--
+ISP:
+
+enable
+configure terminal
+!
+hostname ISP
+no ip domain-lookup
+!
+username cisco secret class
+ip domain-name cisco.com
+crypto key generate rsa
+1024
+ip ssh version 2
+!
+line console 0
+login local
+logging synchronous
+exit
+!
+line vty 0 15
+login local
+logging synchronous
+exit
+!
+interface f0/0
+ip address 209.165.200.30 255.255.255.224
+no shutdown
+exit
+!
+interface serial 0/0/0
+ip address 64.100.100.2 255.255.255.252
+no shutdown
+exit
+!
+ip route 40.0.0.0 248.0.0.0 serial 0/0/0
+ip route 172.16.20.0 255.255.255.248 serial 0/0/0
+!
+end
+write memory
+!

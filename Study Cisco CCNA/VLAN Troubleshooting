@@ -1,0 +1,30 @@
+!#SW2
+enable
+    show running-config
+        configure terminal
+            interface fastethernet 0/1
+                switchport trunk encapisulation dot1q
+                switchport mode trunk 
+                do show running-config 
+                end
+copy running-config startup-config
+
+!#SW1
+enable
+    show running-config
+        configure terminal
+            interface fastethernet 0/4
+                switchport access vlan 500
+                show running-config
+                end
+copy running-config startup-config
+
+!#SW3
+enable
+    show running-config
+        configure terminal
+            interface fastethernet 0/2
+                switchport trunk native vlan1
+                do show running-startup
+                end
+copy running-configure startup-config
