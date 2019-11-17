@@ -8,7 +8,6 @@ enable
                 do show running-config 
                 end
 copy running-config startup-config
-
 -----------------------------------------------------------------
 
 !#SW1
@@ -17,10 +16,9 @@ enable
         configure terminal
             interface fastethernet 0/4
                 switchport access vlan 500
-                show running-config
+                do show running-config
                 end
 copy running-config startup-config
-
 ------------------------------------------------------------------
 
 !#SW3
