@@ -1,0 +1,53 @@
+conceitos de dados
+1 - O que podemos extrair de dados brutos ?
+R.: Informações e com ela o conhecimento
+
+O que é um banco de dados
+
+Conjunto de sistemas que gerenciam dados
+
+SGBDs
+Linguagem de definição, manipulação e diretório de dados.
+
+q que é um SGBD ?
+É um sistema gerenciador de banco de dados
+
+SGDBR - RDBMS (r = relacional)
+
+Modelagem de SGDBR
+MER - DER
+Modelo lógico
+
+Qual das alternativas estão corretas com relaão a um banco de dados relacional?
+As entidades são chamadas de tabelas
+As linhas também são chamadas de registro ou tuplas
+
+SGBDR - SQL
+    DDL - Data definition language
+    DML - Data Manupulation languagem
+    DQL - Data query language
+
+ACID - Transactions
+    Atomocidade - todas as operações são executadas com sucesso
+    Consistência - Unidade de chaves, restrições de integridade lógica, etc
+    Isolamento - varias transações podem acessar simultaneamente
+    Durabilidade - Depois do Commit mesmo com erros, queda de energia etc. As alteraç~eos devem ser aplicadas
+
+O que não faz parte do ACID?
+Continuidade
+
+    
+SGBDs-R
+    Verções pagas
+        Oracle
+        SQL Server
+        IBM DB2
+    
+    versões gratis
+        PostgreSQL
+        MySQL
+        SQLite
+        
+
+
+

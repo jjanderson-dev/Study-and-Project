@@ -1,0 +1,76 @@
+Monolito - uma única aplicação ou serviço (cliente ou movel) 
+Microserviços - executam diferentes tecnologias e executam um serviço para cada operação.
+
+independente da linguagem principal
+________________________
+
+Conceito de IOT
+
+Things clouds
+
+Smart building
+Smart Home 
+Wearables - vestiveis
+Agriculture - 
+Smart Transportations - veículos autonomos que coletam dados
+RFID Supply Chain - radio frequencia
+Energy Efficiency
+
+Computação Ubíqua - Quando a tecnologia recua para um pano de fundo e não fica mais na nossa visão.
+
+desafios
+    privacidade e segurança
+    quantidade exponencial de dispositivos conectados na rede
+    gerar valor a partir dos dados coletados
+
+Arquitetura de IOT
+
+como conectar as coisas ?
+
+    conseidere os atributos?
+
+        baixo consumo de energia - é muito importante para coletar dados de objetos longe
+        rede de dados limitada - 
+        resiliencia - 
+        segurança - 
+        customização - 
+        baixo custo - 
+ Exemplos de placas que podemos usar 
+    ARDUINO
+    MCUs (Microcontrolador de chip único)
+    Raspberry Pi
+
+Protocolo de comunicação de IOT
+MQTT
+    conecta IOT com o clouds
+    MQTT
+    foi criado pela IBM para conectar sensores de pipeline de petroleo e satelites
+    protocolo de msg assincrona M2M
+    Base na pilha TCP/importante
+
+provedor de serviços na nuvem
+
+Amazon
+Microsoft
+
+Prova de conseito:
+
+    App Android + Eclipse Mosquito + Node.js + Banco de dados MySQL
+    
+    Minimo Produtivo Viável
+    
+    GPS Embarcado + HiveMQ + Akka Scala JVM + Banco de Dados noSQL (MongoDB)
+
+    Outra solução:
+
+    GPS Embarcado + AWS IoT Core + AWS Kinesis Firehose + AWS S3
+
+    IoT na Pratica
+
+    GPS Embarcado + AWS IoT Core + AWS Data Stream + AWS Lambda + AWS Elastic Cache Redis
+
+    Mostrar para o usuário
+
+    AWS Elastic Cache Redis + AWS EC2 (VM) + FeathersJS Backend + Dashboard
+
+    
